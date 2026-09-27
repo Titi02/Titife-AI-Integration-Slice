@@ -1,0 +1,402 @@
+/* ============================================================================
+ * DESIGN TOKENS — CSS CUSTOM PROPERTIES
+ *
+ * COLOR SYSTEM — READ THIS
+ * ----------------------------------------------------------------------------
+ * The token set uses a two-tier color model:
+ *
+ *   1. PRIMITIVE COLORS (--primitive-*)  are the raw palettes and FOUNDATIONS.
+ *      They are emitted for traceability and re-theming but must NOT be
+ *      referenced directly in UI code.
+ *
+ *   2. COLOR ROLES (--color-*)  are the semantic colors UI code should use
+ *      (primary, on primary, surface color, error container, positive, ...).
+ *      Each resolves through the primitive layer with a raw hex fallback:
+ *
+ *          --color-primary: var(--primitive-primary-key-color, #2563ebff);
+ *
+ *      so it keeps a single re-themable source and still works if the
+ *      primitive layer is stripped (the --roles-only mode does exactly that).
+ * ============================================================================ */
+
+:root {
+
+  /* --------------------------------------------------------------
+     PRIMITIVE COLORS — FOUNDATIONS
+     Reference material only.
+     Do NOT use these variables directly in UI code;
+     consume color roles (--color-*) instead.
+     -------------------------------------------------------------- */
+--primitive-primary-key-color: #2563ebff;
+--primitive-secondary-key-color: #5787f0ff;
+--primitive-tertiary-key-color: #124bc7ff;
+--primitive-neutral-key-color: #16181dff;
+--primitive-neutral-key-variant-color: #38393aff;
+--primitive-error-key-color: #f31c08ff;
+--primitive-primary-0: #000000ff;
+--primitive-primary-10: #04122fff;
+--primitive-primary-20: #09235dff;
+--primitive-primary-30: #0d358cff;
+--primitive-primary-40: #1146bbff;
+--primitive-primary-50: #1558eaff;
+--primitive-primary-60: #4479eeff;
+--primitive-primary-70: #8aabf4ff;
+--primitive-primary-80: #a2bcf6ff;
+--primitive-primary-90: #dae4fcff;
+--primitive-primary-95: #e8eefdff;
+--primitive-primary-98: #f6f8feff;
+--primitive-primary-99: #fafcffff;
+--primitive-primary-100: #ffffffff;
+--primitive-secondary-0: #000000ff;
+--primitive-secondary-10: #04122fff;
+--primitive-secondary-20: #08235eff;
+--primitive-secondary-30: #0d358cff;
+--primitive-secondary-40: #1146bbff;
+--primitive-secondary-50: #1e5eebff;
+--primitive-secondary-60: #4479eeff;
+--primitive-secondary-70: #739bf2ff;
+--primitive-secondary-80: #b9cdf9ff;
+--primitive-secondary-90: #d0defbff;
+--primitive-secondary-95: #e8eefdff;
+--primitive-secondary-98: #f6f8feff;
+--primitive-secondary-99: #fafcffff;
+--primitive-secondary-100: #ffffffff;
+--primitive-tertiary-0: #000000ff;
+--primitive-tertiary-10: #04122fff;
+--primitive-tertiary-20: #08235eff;
+--primitive-tertiary-30: #0d358cff;
+--primitive-tertiary-40: #1147bbff;
+--primitive-tertiary-50: #2d69ecff;
+--primitive-tertiary-60: #4d80efff;
+--primitive-tertiary-70: #7ca2f3ff;
+--primitive-tertiary-80: #afc6f8ff;
+--primitive-tertiary-90: #d0defbff;
+--primitive-tertiary-95: #e8eefdff;
+--primitive-tertiary-98: #f1f5feff;
+--primitive-tertiary-99: #fafcffff;
+--primitive-tertiary-100: #ffffffff;
+--primitive-neutral-0: #000000ff;
+--primitive-neutral-10: #16181dff;
+--primitive-neutral-20: #2c303aff;
+--primitive-neutral-30: #4b5263ff;
+--primitive-neutral-40: #5f677dff;
+--primitive-neutral-50: #6e7891ff;
+--primitive-neutral-60: #8b93a7ff;
+--primitive-neutral-70: #a8aebdff;
+--primitive-neutral-80: #c5c9d3ff;
+--primitive-neutral-90: #e2e4e9ff;
+--primitive-neutral-95: #f0f1f4ff;
+--primitive-neutral-99: #fcfcfdff;
+--primitive-neutral-100: #ffffffff;
+--primitive-neutral-98: #f9fafbff;
+--primitive-n-variant-0: #000000ff;
+--primitive-n-variant-10: #19191aff;
+--primitive-n-variant-20: #323334ff;
+--primitive-n-variant-30: #4b4c4eff;
+--primitive-n-variant-40: #646668ff;
+--primitive-n-variant-50: #7d8082ff;
+--primitive-n-variant-60: #97999bff;
+--primitive-n-variant-70: #b1b2b4ff;
+--primitive-n-variant-80: #cbcccdff;
+--primitive-n-variant-90: #e5e5e6ff;
+--primitive-n-variant-95: #f2f2f2ff;
+--primitive-n-variant-98: #fafafaff;
+--primitive-n-variant-99: #fcfcfcff;
+--primitive-n-variant-100: #ffffffff;
+--primitive-error-0: #000000ff;
+--primitive-error-10: #310602ff;
+--primitive-error-20: #630b03ff;
+--primitive-error-30: #941105ff;
+--primitive-error-40: #c51707ff;
+--primitive-error-50: #f71c08ff;
+--primitive-error-60: #f84a3aff;
+--primitive-error-70: #fa776bff;
+--primitive-error-80: #fca49cff;
+--primitive-error-90: #fdd2ceff;
+--primitive-error-95: #fee8e6ff;
+--primitive-error-98: #fff6f5ff;
+--primitive-error-99: #fffafaff;
+--primitive-error-100: #ffffffff;
+--primitive-green-40: #2e7d32ff;
+--primitive-green-100: #ffffffff;
+
+/* --------------------------------------------------------------
+     COLOR ROLES — PREFERRED COLOR NAMESPACE
+     Apply these variables in UI code, not the primitives above.
+     -------------------------------------------------------------- */
+--color-primary: var(--primitive-primary-key-color, #2563ebff);
+--color-on-primary: var(--primitive-primary-100, #ffffffff);
+--color-primary-container: var(--primitive-primary-90, #dae4fcff);
+--color-on-primary-container: var(--primitive-primary-30, #0d358cff);
+--color-secondary: var(--primitive-secondary-40, #1146bbff);
+--color-on-secondary: var(--primitive-secondary-100, #ffffffff);
+--color-secondary-container: var(--primitive-secondary-90, #d0defbff);
+--color-on-secondary-container: var(--primitive-secondary-30, #0d358cff);
+--color-tertiary: var(--primitive-tertiary-40, #1147bbff);
+--color-on-tertiary: var(--primitive-tertiary-100, #ffffffff);
+--color-tertiary-container: var(--primitive-tertiary-90, #d0defbff);
+--color-on-tertiary-container: var(--primitive-tertiary-30, #0d358cff);
+/* Affirmative state (e.g. met password requirement) */
+--color-positive: var(--primitive-green-40, #2e7d32ff);
+/* Content on a positive-colored surface */
+--color-on-positive: var(--primitive-green-100, #ffffffff);
+--color-surface-color: var(--primitive-neutral-98, #f9fafbff);
+--color-on-surface-color: var(--primitive-neutral-10, #16181dff);
+--color-surface-variant-color: var(--primitive-n-variant-90, #e5e5e6ff);
+--color-surface-cont-highest: var(--primitive-neutral-90, #e2e4e9ff);
+--color-on-surface-variant-c: var(--primitive-n-variant-30, #4b4c4eff);
+--color-surface-cont-high: var(--primitive-neutral-90, #e2e4e9ff);
+--color-surface-cont: var(--primitive-neutral-95, #f0f1f4ff);
+--color-surface-cont-low: var(--primitive-neutral-98, #f9fafbff);
+--color-surface-cont-lowest: var(--primitive-neutral-100, #ffffffff);
+--color-inverse-surface: var(--primitive-neutral-20, #2c303aff);
+--color-inverse-on-surface: var(--primitive-neutral-95, #f0f1f4ff);
+--color-outline-color: var(--primitive-n-variant-50, #7d8082ff);
+--color-outline-varaint-color: var(--primitive-n-variant-80, #cbcccdff);
+--color-error-color: var(--primitive-error-40, #c51707ff);
+--color-on-error-color: var(--primitive-error-100, #ffffffff);
+--color-error-container: var(--primitive-error-90, #fdd2ceff);
+--color-on-error-container: var(--primitive-error-30, #941105ff);
+--color-primary-fixed: var(--primitive-primary-90, #dae4fcff);
+--color-on-primary-fixed: var(--primitive-primary-10, #04122fff);
+--color-primary-fixed-dim: var(--primitive-primary-80, #a2bcf6ff);
+--color-on-primary-fixed-variant: var(--primitive-primary-30, #0d358cff);
+--color-inverse-primary: var(--primitive-primary-80, #a2bcf6ff);
+--color-sec-fixed: var(--primitive-secondary-90, #d0defbff);
+--color-on-sec-fixed: var(--primitive-secondary-10, #04122fff);
+--color-sec-fixed-dim: var(--primitive-secondary-80, #b9cdf9ff);
+--color-on-sec-fixed-varaint: var(--primitive-secondary-30, #0d358cff);
+--color-tertiary-fixed: var(--primitive-tertiary-90, #d0defbff);
+--color-on-tertiary-fixed: var(--primitive-tertiary-10, #04122fff);
+--color-tertiary-fixed-dim: var(--primitive-tertiary-80, #afc6f8ff);
+--color-on-tertiary-fixed-var: var(--primitive-tertiary-30, #0d358cff);
+--color-background: var(--primitive-neutral-98, #f9fafbff);
+--color-on-background: var(--primitive-neutral-10, #16181dff);
+--color-surface-bright: var(--primitive-neutral-98, #f9fafbff);
+--color-surface-dim: var(--primitive-neutral-80, #c5c9d3ff);
+
+/* --------------------------------------------------------------
+     EFFECTS — box-shadow declarations
+     -------------------------------------------------------------- */
+--shadow-hard-shadow: 4px 6px 8px 0px #00000052;
+--shadow-medium-shadow: 2px 4px 6px 0px #00000047;
+--shadow-soft-shadow: 2px 2px 20px 0px #0000001f;
+
+/* --------------------------------------------------------------
+     SPACING — layout offsets
+     -------------------------------------------------------------- */
+--space-no-spacing: 0px;
+--space-extra-small-spacing: 4px;
+--space-compact-spacing: 6px;
+--space-small-spacing: 8px;
+--space-medium-spacing: 12px;
+--space-base-spacing: 16px;
+--space-large-spacing: 20px;
+--space-extra-large-spacing: 24px;
+--space-very-large-spacing: 32px;
+
+/* --------------------------------------------------------------
+     TYPOGRAPHY — per-property variables plus a combined shorthand
+     (--font-<style>) for the CSS `font` property.
+     -------------------------------------------------------------- */
+--font-display-large-fontsize: 64px;
+--font-display-large-textdecoration: none;
+--font-display-large-fontfamily: "DM Sans";
+--font-display-large-fontweight: 500;
+--font-display-large-fontstyle: normal;
+--font-display-large-fontstretch: normal;
+--font-display-large-letterspacing: -2.56px;
+--font-display-large-lineheight: 96px;
+--font-display-large-paragraphindent: 0px;
+--font-display-large-paragraphspacing: 0px;
+--font-display-large-textcase: none;
+--font-display-large: 500 64px/96px "DM Sans";
+--font-display-medium-fontsize: 50px;
+--font-display-medium-textdecoration: none;
+--font-display-medium-fontfamily: "DM Sans";
+--font-display-medium-fontweight: 500;
+--font-display-medium-fontstyle: normal;
+--font-display-medium-fontstretch: normal;
+--font-display-medium-letterspacing: -1.5px;
+--font-display-medium-lineheight: 75px;
+--font-display-medium-paragraphindent: 0px;
+--font-display-medium-paragraphspacing: 0px;
+--font-display-medium-textcase: none;
+--font-display-medium: 500 50px/75px "DM Sans";
+--font-display-small-fontsize: 40px;
+--font-display-small-textdecoration: none;
+--font-display-small-fontfamily: "DM Sans";
+--font-display-small-fontweight: 500;
+--font-display-small-fontstyle: normal;
+--font-display-small-fontstretch: normal;
+--font-display-small-letterspacing: -0.92px;
+--font-display-small-lineheight: 60px;
+--font-display-small-paragraphindent: 0px;
+--font-display-small-paragraphspacing: 0px;
+--font-display-small-textcase: none;
+--font-display-small: 500 40px/60px "DM Sans";
+--font-headline-large-fontsize: 32px;
+--font-headline-large-textdecoration: none;
+--font-headline-large-fontfamily: "DM Sans";
+--font-headline-large-fontweight: 500;
+--font-headline-large-fontstyle: normal;
+--font-headline-large-fontstretch: normal;
+--font-headline-large-letterspacing: -0.48px;
+--font-headline-large-lineheight: 48px;
+--font-headline-large-paragraphindent: 0px;
+--font-headline-large-paragraphspacing: 0px;
+--font-headline-large-textcase: none;
+--font-headline-large: 500 32px/48px "DM Sans";
+--font-headline-medium-fontsize: 28px;
+--font-headline-medium-textdecoration: none;
+--font-headline-medium-fontfamily: "DM Sans";
+--font-headline-medium-fontweight: 500;
+--font-headline-medium-fontstyle: normal;
+--font-headline-medium-fontstretch: normal;
+--font-headline-medium-letterspacing: -0.364px;
+--font-headline-medium-lineheight: 42px;
+--font-headline-medium-paragraphindent: 0px;
+--font-headline-medium-paragraphspacing: 0px;
+--font-headline-medium-textcase: none;
+--font-headline-medium: 500 28px/42px "DM Sans";
+--font-headline-small-fontsize: 24px;
+--font-headline-small-textdecoration: none;
+--font-headline-small-fontfamily: "DM Sans";
+--font-headline-small-fontweight: 500;
+--font-headline-small-fontstyle: normal;
+--font-headline-small-fontstretch: normal;
+--font-headline-small-letterspacing: -0.24px;
+--font-headline-small-lineheight: 36px;
+--font-headline-small-paragraphindent: 0px;
+--font-headline-small-paragraphspacing: 0px;
+--font-headline-small-textcase: none;
+--font-headline-small: 500 24px/36px "DM Sans";
+--font-title-large-fontsize: 22px;
+--font-title-large-textdecoration: none;
+--font-title-large-fontfamily: "DM Sans";
+--font-title-large-fontweight: 500;
+--font-title-large-fontstyle: normal;
+--font-title-large-fontstretch: normal;
+--font-title-large-letterspacing: -0.22px;
+--font-title-large-lineheight: 33px;
+--font-title-large-paragraphindent: 0px;
+--font-title-large-paragraphspacing: 0px;
+--font-title-large-textcase: none;
+--font-title-large: 500 22px/33px "DM Sans";
+--font-title-medium-fontsize: 16px;
+--font-title-medium-textdecoration: none;
+--font-title-medium-fontfamily: "DM Sans";
+--font-title-medium-fontweight: 600;
+--font-title-medium-fontstyle: normal;
+--font-title-medium-fontstretch: normal;
+--font-title-medium-letterspacing: -0.136px;
+--font-title-medium-lineheight: 24px;
+--font-title-medium-paragraphindent: 0px;
+--font-title-medium-paragraphspacing: 0px;
+--font-title-medium-textcase: none;
+--font-title-medium: 600 16px/24px "DM Sans";
+--font-title-small-fontsize: 14px;
+--font-title-small-textdecoration: none;
+--font-title-small-fontfamily: "DM Sans";
+--font-title-small-fontweight: 600;
+--font-title-small-fontstyle: normal;
+--font-title-small-fontstretch: normal;
+--font-title-small-letterspacing: -0.105px;
+--font-title-small-lineheight: 21px;
+--font-title-small-paragraphindent: 0px;
+--font-title-small-paragraphspacing: 0px;
+--font-title-small-textcase: none;
+--font-title-small: 600 14px/21px "DM Sans";
+--font-body-large-fontsize: 16px;
+--font-body-large-textdecoration: none;
+--font-body-large-fontfamily: "DM Sans";
+--font-body-large-fontweight: 500;
+--font-body-large-fontstyle: normal;
+--font-body-large-fontstretch: normal;
+--font-body-large-letterspacing: -0.128px;
+--font-body-large-lineheight: 24px;
+--font-body-large-paragraphindent: 0px;
+--font-body-large-paragraphspacing: 0px;
+--font-body-large-textcase: none;
+--font-body-large: 500 16px/24px "DM Sans";
+--font-body-medium-fontsize: 14px;
+--font-body-medium-textdecoration: none;
+--font-body-medium-fontfamily: "DM Sans";
+--font-body-medium-fontweight: 500;
+--font-body-medium-fontstyle: normal;
+--font-body-medium-fontstretch: normal;
+--font-body-medium-letterspacing: -0.105px;
+--font-body-medium-lineheight: 21px;
+--font-body-medium-paragraphindent: 0px;
+--font-body-medium-paragraphspacing: 0px;
+--font-body-medium-textcase: none;
+--font-body-medium: 500 14px/21px "DM Sans";
+--font-body-small-fontsize: 12px;
+--font-body-small-textdecoration: none;
+--font-body-small-fontfamily: "DM Sans";
+--font-body-small-fontweight: 500;
+--font-body-small-fontstyle: normal;
+--font-body-small-fontstretch: normal;
+--font-body-small-letterspacing: -0.09px;
+--font-body-small-lineheight: 18px;
+--font-body-small-paragraphindent: 0px;
+--font-body-small-paragraphspacing: 0px;
+--font-body-small-textcase: none;
+--font-body-small: 500 12px/18px "DM Sans";
+--font-label-large-fontsize: 14px;
+--font-label-large-textdecoration: none;
+--font-label-large-fontfamily: "DM Sans";
+--font-label-large-fontweight: 500;
+--font-label-large-fontstyle: normal;
+--font-label-large-fontstretch: normal;
+--font-label-large-letterspacing: -0.126px;
+--font-label-large-lineheight: 21px;
+--font-label-large-paragraphindent: 0px;
+--font-label-large-paragraphspacing: 0px;
+--font-label-large-textcase: none;
+--font-label-large: 500 14px/21px "DM Sans";
+--font-label-medium-fontsize: 12px;
+--font-label-medium-textdecoration: none;
+--font-label-medium-fontfamily: "DM Sans";
+--font-label-medium-fontweight: 500;
+--font-label-medium-fontstyle: normal;
+--font-label-medium-fontstretch: normal;
+--font-label-medium-letterspacing: -0.108px;
+--font-label-medium-lineheight: 18px;
+--font-label-medium-paragraphindent: 0px;
+--font-label-medium-paragraphspacing: 0px;
+--font-label-medium-textcase: none;
+--font-label-medium: 500 12px/18px "DM Sans";
+--font-label-small-fontsize: 11px;
+--font-label-small-textdecoration: none;
+--font-label-small-fontfamily: "DM Sans";
+--font-label-small-fontweight: 500;
+--font-label-small-fontstyle: normal;
+--font-label-small-fontstretch: normal;
+--font-label-small-letterspacing: -0.088px;
+--font-label-small-lineheight: 16.5px;
+--font-label-small-paragraphindent: 0px;
+--font-label-small-paragraphspacing: 0px;
+--font-label-small-textcase: none;
+--font-label-small: 500 11px/16.5px "DM Sans";
+
+/* --------------------------------------------------------------
+     FONT FAMILIES
+     -------------------------------------------------------------- */
+/* Used for all numeric displays. Falls back to Helvetica Neue, Helvetica, Arial, sans-serif. */
+--font-family-neuehaasgrotesk: "Neue Haas Grotesk";
+
+/* --------------------------------------------------------------
+     EXAMPLE CONSUMPTION
+     .card {
+       background : var(--color-surface-color);
+       color      : var(--color-on-surface-color);
+       border     : 1px solid var(--color-outline-varaint-color);
+       box-shadow : var(--shadow-medium-shadow);
+       padding    : var(--space-base-spacing);
+       font       : var(--font-body-medium);
+     }
+     -------------------------------------------------------------- */
+}
+
+/* ============================ end of generated tokens ================ */

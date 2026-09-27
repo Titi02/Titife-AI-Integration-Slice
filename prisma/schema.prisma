@@ -1,0 +1,76 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  createdAt     DateTime  @default(now())
+  jobs          Job[]
+  rateLimits    RateLimitEvent[]
+}
+
+model Job {
+  id            String        @id @default(cuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id])
+  status        JobStatus     @default(pending)
+  storageKey    String
+  fileName      String
+  mimeType      String
+  attempts      Int           @default(0)
+  errorMessage  String?
+  rawOutput     String?
+  extraction    Json?
+  inputTokens   Int?
+  outputTokens  Int?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  followUp      FollowUpAction[]
+
+  @@index([userId, createdAt])
+}
+
+enum JobStatus {
+  pending
+  processing
+  done
+  failed
+}
+
+enum RateLimitEndpoint {
+  upload
+  followup
+}
+
+model FollowUpAction {
+  id            String            @id @default(cuid())
+  jobId         String
+  job           Job               @relation(fields: [jobId], references: [id])
+  status        JobStatus         @default(pending)
+  attempts      Int               @default(0)
+  errorMessage  String?
+  rawOutput     String?
+  summary       String?
+  inputTokens   Int?
+  outputTokens  Int?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([jobId, createdAt])
+}
+
+model RateLimitEvent {
+  id          String              @id @default(cuid())
+  userId      String
+  user        User                @relation(fields: [userId], references: [id])
+  endpoint    RateLimitEndpoint
+  createdAt   DateTime            @default(now())
+
+  @@index([userId, endpoint, createdAt])
+}
